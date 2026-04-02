@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danya Savenok - Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            /* Темно-серый фон. Если есть картинка с горами, замените background на нее */
+            background: linear-gradient(135deg, #4a4a4a, #2b2b2b);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            max-width: 1000px;
+            width: 100%;
+            flex-wrap: wrap; /* Адаптация под телефоны */
+            justify-content: center;
+        }
+
+        /* --- ОБЩИЙ СТИЛЬ КАРТОЧЕК (Glassmorphism) --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- ЛЕВАЯ КАРТОЧКА (Профиль и Соцсети) --- */
+        .profile-card {
+            flex: 1;
+            min-width: 320px;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-info {
+            text-align: left;
+        }
+
+        .user-info h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .user-info p {
+            color: #d1d1d1;
+            font-size: 14px;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 15px 0 25px 0;
+        }
+
+        /* Обновленные стили для соцсетей (Квадратные кнопки) */
+        .social-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #d1d1d1;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .social-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 75px;
+            height: 75px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px; /* Скругленные квадраты */
+            color: #fff;
+            text-decoration: none;
+            font-size: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* --- ПРАВАЯ КАРТОЧКА (Tech Stack) --- */
+        .tech-card {
+            flex: 1;
+            min-width: 320px;
+            max-width: 500px;
+        }
+
+        .tech-card h2 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .tech-category {
+            margin-bottom: 22px;
+        }
+
+        .tech-category h3 {
+            font-size: 14px;
+            color: #e0e0e0;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 4px; /* Острые плашки как на фото */
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            cursor: default;
+        }
+
+        /* Цвета плашек */
+        .b-python { background: #3776AB; }
+        .b-js { background: #F7DF1E; color: #000; }
+        .b-html { background: #E34F26; }
+        .b-css { background: #1572B6; }
+        .b-discord { background: #2C2F33; }
+        .b-fastapi { background: #009688; }
+        .b-sqlite { background: #003B57; }
+        .b-postgres { background: #336791; }
+        .b-windows { background: #00A4EF; }
+        .b-android { background: #3DDC84; color: #000; }
+        .b-arch { background: #1793D1; }
+        .b-github { background: #181717; }
+        .b-git { background: #F05032; }
+        .b-proton { background: #6D4AFF; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="glass-card profile-card">
+            <div class="avatar-section">
+                <img src="img/photo_2026-04-02_02-43-54.jpg" alt="Sky Avatar" class="avatar">
+                <div class="user-info">
+                    <h1>Danya Savenok</h1>
+                    <p>Python, Fullstack, WebApp dev.</p>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+            
+            <div class="social-title">Social Networks</div>
+            <div class="social-links">
+                <a href="https://github.com/ваш_ник" target="_blank" class="social-btn">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.instagram.com/dny.wavx?igsh=MWJlbm5obGdpOW1paA%3D%3D&utm_source=qr" target="_blank" class="social-btn">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://t.me/dny_wax" target="_blank" class="social-btn">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="glass-card tech-card">
+            <h2>Tech Stack</h2>
+
+            <div class="tech-category">
+                <h3>Languages:</h3>
+                <div class="badges">
+                    <span class="badge b-python"><i class="fab fa-python"></i> Python</span>
+                    <span class="badge b-js"><i class="fab fa-js"></i> JavaScript</span>
+                    <span class="badge b-html"><i class="fab fa-html5"></i> HTML5</span>
+                    <span class="badge b-css"><i class="fab fa-css3-alt"></i> CSS3</span>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h3>Main Frameworks & Libraries:</h3>
+                <div class="badges">
+                    <span class="badge b-discord"><i class="fab fa-discord"></i> Discord.py</span>
+                    <span class="badge b-fastapi"><i class="fas fa-bolt"></i> FastAPI</span>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h3>Databases:</h3>
+                <div class="badges">
+                    <span class="badge b-sqlite"><i class="fas fa-database"></i> SQLite</span>
+                    <span class="badge b-postgres"><i class="fas fa-database"></i> PostgreSQL</span>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h3>Operating systems:</h3>
+                <div class="badges">
+                    <span class="badge b-windows"><i class="fab fa-windows"></i> Windows</span>
+                    <span class="badge b-android"><i class="fab fa-android"></i> Android</span>
+                    <span class="badge b-arch"><i class="fab fa-linux"></i> Arch Linux</span>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h3>No category:</h3>
+                <div class="badges">
+                    <span class="badge b-github"><i class="fab fa-github"></i> GitHub</span>
+                    <span class="badge b-git"><i class="fab fa-git-alt"></i> Git</span>
+                    <span class="badge b-proton"><i class="fas fa-envelope"></i> Protonmail</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
